@@ -1,0 +1,78 @@
+spring:
+  application:
+    name: InsightNote
+
+  config:
+    import: optional:file:.env[.properties]
+
+  profiles:
+    active: ${PROFILES}
+    group:
+      prod: oauth
+      dev: oauth
+      local: oauth
+
+  datasource:
+    driver-class-name: ${DATABASE_DRIVER}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      default_batch_fetch_size: 100
+    defer-datasource-initialization: true
+  logging:
+    level:
+      root: info
+
+  cloud:
+    aws:
+      s3:
+        credentials:
+          accessKey: ${AWS_S3_ACCESSKEY}
+          secretKey: ${AWS_S3_SECRETKEY}
+        bucket: ${AWS_S3_BUCKET}
+      region:
+        static: ${AWS_REGION}
+      stack:
+        auto: false
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GMAIL_ADDRESS}
+    password: ${GMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  jwt:
+    secret: ${JWT_SECRET}
+
+kakao:
+  api:
+    cid: TC0ONETIME
+    admin-key: ${KAKAO_API_KEY}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: alway
+
+qr:
+  save-path: ${QR_SAVE_PATH}
